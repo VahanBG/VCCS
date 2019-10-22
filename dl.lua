@@ -34,7 +34,7 @@ while i < #options do
 		else
 			error(usage)
 		end
-	elseif string.sub(option, 2, 2) == 'o' then
+	elseif string.sub(option, 1, 1) == 'o' then
 		overwrite = true
 	else
 		error(usage)
@@ -45,7 +45,7 @@ end
 local http_handle = http.get(argv[1])
 
 if not http_handle then
-	error("dl: Could not get file")
+	error("dl: Could not reach file")
 end
 
 if fs.exists(argv[2]) and (not overwrite) then
