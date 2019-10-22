@@ -25,7 +25,7 @@ local overwrite = false
 
 i = 1
 
-while i < #options do
+while i <= #options do
 	if string.sub(options[i], 1, 1) == '-' then
 		local option = string.lower(string.sub(options[i], 2, #options[i]))
 
