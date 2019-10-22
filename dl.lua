@@ -11,8 +11,8 @@ local options = {}
 
 local i = 1
 
-while i < #argv do
-	if (string.sub(argv[i], 1, 1) == '-') then
+while i < #argv + 1 do
+	if string.sub(argv[i], 1, 1) == '-' then
 		options[#options + 1] = string.sub(argv[i], 2, #argv[i])
 		table.remove(argv, i)
 		i = i + 2
