@@ -4,21 +4,18 @@ local argc = #argv
 
 local usage = "Usage:\n" .. shell.getRunningProgram() .. "dl <url> <filename> [%-%-overwrite]"
 
-if argc < 2 or argc > 3 then
+if argc < 2 then
 	error(usage)
 end
 
-local overwrite = false
+local options = {}
 
-if argc == 3 then
-	for i = 1, 3 do
-		if (argv[i] == "--overwrite") then
-			overwrite = true
-			argv.remove(i)
-			break
-		end
+for i = 1, argc do
+	if (argv[i] == "--overwrite") then
+		overwrite = true
+		argv.remove(i)
+		break
 	end
-	error(usage)
 end
 
 local file_handle = http.get(args[1])
