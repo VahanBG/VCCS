@@ -4,7 +4,7 @@ local usage = "Usage:\n" .. shell.getRunningProgram() .. " <url> <filename> [--o
 
 if #argv < 2 then
 	print(usage)
-	error('')
+	return
 end
 
 local options = {}
@@ -15,9 +15,10 @@ while i < #argv do
 	if (string.sub(argv[i], 1, 1) == '-') then
 		options[#options + 1] = string.sub(argv[i], 2, #argv[i])
 		argv.remove(i)
+		i = i + 2
+	else
 		i = i + 1
 	end
-	i = i + 1
 end
 
 local overwrite = false
