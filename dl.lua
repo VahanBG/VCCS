@@ -1,9 +1,10 @@
 local argv = {...}
 
-local usage = "Usage:\n" .. shell.getRunningProgram() .. "dl <url> <filename> [%-%-overwrite]"
+local usage = "Usage:\n" .. shell.getRunningProgram() .. " <url> <filename> [%-%-overwrite]"
 
 if #argv < 2 then
-	error(usage)
+	print(usage)
+	error('')
 end
 
 local options = {}
