@@ -34,7 +34,7 @@ while i <= #options do
 		else
 			error(usage)
 		end
-	elseif string.sub(option, 1, 1) == 'o' then
+	elseif string.sub(options[i], 1, 1) == 'o' then
 		overwrite = true
 	else
 		error(usage)
