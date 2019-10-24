@@ -9,37 +9,41 @@ end
 
 local options = {}
 
-local i = 1
+local indices = {}
 
-while i < #argv + 1 do
+for i = 1, #argv do
 	if string.sub(argv[i], 1, 1) == '-' then
 		options[#options + 1] = string.sub(argv[i], 2, #argv[i])
-		table.remove(argv, i)
-		i = i + 2
-	else
-		i = i + 1
+		indices[#indices + 1] = i
 	end
+end
+
+for i = 1, #indices do
+	table.remove(argv, indices[i])
 end
 
 local overwrite = false
 
-i = 1
-
-while i <= #options do
+for i = 1, #options do
 	if string.sub(options[i], 1, 1) == '-' then
 		local option = string.lower(string.sub(options[i], 2, #options[i]))
 
 		if option == "overwrite" then
 			overwrite = true
 		else
-			error(usage)
+			print(usage)
+			return
 		end
-	elseif string.sub(options[i], 1, 1) == 'o' then
-		overwrite = true
 	else
-		error(usage)
+		local option = string.lower(string.sub(options[i], 1, 1))
+
+		if option == 'o' then
+			overwrite = true
+		else
+			print(usage)
+			return
+		end
 	end
-	i = i + 1
 end
 
 local http_handle = http.get(argv[1])
@@ -53,10 +57,10 @@ if fs.exists(argv[2]) and (not overwrite) then
 	local input = string.lower(read())
 	if input ~= 'y' and input ~= "yes" then
 		http_handle.close()
-		error("")
+		return
 	end
 end
 
-local sw = fs.open(argv[2], "w")
+local sw = fs.open(argv[2], 'w')
 sw.write(http_handle.readAll())
 sw.close()
